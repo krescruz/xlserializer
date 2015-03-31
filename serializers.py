@@ -48,8 +48,21 @@ class XlSerializerBase(object):
 		for name in column_names:
 			col_index = self._get_index_col(name)
 			cells = self._col_slice(col_index, start_rowx=self.init_row+1)
-			data_cols.append(cells)
-		return  list(zip(*data_cols))
+			data_cols.append(self.to_internal_value(cells))
+		return list(zip(*data_cols))
+
+	def to_internal_value(self, rows):
+		values = []
+		for cell in rows:
+			internal_value = None
+			if cell.ctype is xlrd.XL_CELL_DATE:
+				internal_value = xlrd.xldate_as_tuple(cell.value, self.workbook.datemode)
+			else:
+				internal_value = cell.value
+
+			values.append(internal_value)
+
+		return values
 
 	@property
 	def data(self):
