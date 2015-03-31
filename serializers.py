@@ -6,10 +6,8 @@ class XlSerializerBase(object):
 	
 	workbook = None
 
-	def __init__(self, path=None, idx_cols=0, idx_data=0, declared_columns=()):
+	def __init__(self, path=None, declared_columns=()):
 		self.path = path
-		self.idx_cols = idx_cols
-		self.idx_data = idx_data
 		self.declared_columns = declared_columns
 		self._open()
 
@@ -20,7 +18,9 @@ class XlSerializerBase(object):
 	def sheet_names(self):
 		 return self.workbook.sheet_names()
 
-	def set_sheet(self, sheet_name):
+	def set_sheet(self, sheet_name, idx_cols=0, idx_data=0):
+		self.idx_cols = idx_cols
+		self.idx_data = idx_data
 		try:
 			self.worksheet = self.workbook.sheet_by_name(sheet_name)
 			self._data = self.get_data_rows()

@@ -1,7 +1,8 @@
 from serializers import XlSerializerBase
 
-serializer = XlSerializerBase(path="workbook.xlsx")
-serializer.set_sheet("NameSheet")
+serializer = XlSerializerBase(path="workbook.xlsx", declared_columns=('NumEmp','Nombre', ))
 
-print(serializer.column_names)
+serializer.set_sheet("NameSheet", idx_cols=7, idx_data=9)
+
+#print(serializer.column_names)
 print(serializer.data)
