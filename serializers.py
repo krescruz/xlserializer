@@ -42,12 +42,14 @@ class XlSerializerBase(object):
 		return cols
 
 	def get_data_rows(self):
-		data_rows = {}
+		data_cols = []
 		column_names = self.declared_columns if self.declared_columns else self.column_names
+
 		for name in column_names:
 			col_index = self._get_index_col(name)
-			data_rows[name] = self._col_slice(col_index)
-		return data_rows
+			cells = self._col_slice(col_index, start_rowx=self.init_row+1)
+			data_cols.append(cells)
+		return  list(zip(*data_cols))
 
 	@property
 	def data(self):
