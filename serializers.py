@@ -7,10 +7,11 @@ class XlSerializerBase(object):
 	
 	workbook = None
 
-	def __init__(self, path=None, init_row=0, sheet_name=(), declared_columns=()):
+	def __init__(self, path=None, idx_cols=0, idx_data=1, sheet_name=(), declared_columns=()):
 		self.path = path
-		self.init_row = init_row
+		self.idx_cols = idx_cols
 		self.sheet_name = sheet_name
+		self.idx_data = idx_data
 		self.declared_columns = declared_columns
 		self._open()
 
@@ -32,7 +33,7 @@ class XlSerializerBase(object):
 	@property
 	def column_names(self):
 		assert self.worksheet is not None, '`worksheet` sheet no valid.'
-		row = self.worksheet.row(self.init_row)
+		row = self.worksheet.row(self.idx_cols)
 		return list(column.value for column in row)
 
 	def _get_index_col(self, name):
@@ -48,7 +49,7 @@ class XlSerializerBase(object):
 
 		for name in column_names:
 			col_index = self._get_index_col(name)
-			cells = self._col_slice(col_index, start_rowx=self.init_row+1)
+			cells = self._col_slice(col_index, start_rowx=self.idx_data)
 			data_cols.append(self.to_internal_value(cells))
 		return list(zip(*data_cols))
 
