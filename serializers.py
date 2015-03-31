@@ -24,6 +24,7 @@ class XlSerializerBase(object):
 	def set_sheet(self, sheet_name):
 		try:
 			self.worksheet = self.workbook.sheet_by_name(sheet_name)
+			self._data = self.get_data_rows()
 		except XLRDError:
 			self.worksheet = None
 		return self.worksheet
@@ -66,4 +67,12 @@ class XlSerializerBase(object):
 
 	@property
 	def data(self):
-		return self.get_data_rows()
+		return self._data
+
+import datetime
+from xlrd import Book
+ser = XlSerializerBase(path="workbook.xlsx")
+ser.set_sheet("Hoja1")
+#print(ser.column_names
+print(ser.data[0][1])
+print(ser.data[0][2])
