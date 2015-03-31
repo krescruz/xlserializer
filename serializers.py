@@ -1,16 +1,14 @@
 import xlrd
 from xlrd.biffh import XLRDError
-import copy
 
 
 class XlSerializerBase(object):	
 	
 	workbook = None
 
-	def __init__(self, path=None, idx_cols=0, idx_data=1, sheet_name=(), declared_columns=()):
+	def __init__(self, path=None, idx_cols=0, idx_data=0, declared_columns=()):
 		self.path = path
 		self.idx_cols = idx_cols
-		self.sheet_name = sheet_name
 		self.idx_data = idx_data
 		self.declared_columns = declared_columns
 		self._open()
