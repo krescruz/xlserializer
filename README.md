@@ -9,7 +9,7 @@ Class helper to read file .xls with python.
 
     from serializers import XlSerializerBase
 
-    serializer = XlSerializerBase(path="workbook.xlsx")
+    serializer = XlSerializerBase(filename="workbook.xlsx")
     serializer.set_sheet("NameSheet") # open sheet
     
     #prints all the names of columns
