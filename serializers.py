@@ -2,7 +2,7 @@ import xlrd
 from xlrd.biffh import XLRDError
 
 
-class XlSerializerBase(object):	
+class BaseXlSerializer(object):	
 	
 	workbook = None
 	_data = []
