@@ -1,5 +1,6 @@
 import xlrd
 from xlrd.biffh import XLRDError
+import datetime
 
 
 class BaseXlSerializer(object):	
@@ -56,7 +57,8 @@ class BaseXlSerializer(object):
 		for cell in rows:
 			internal_value = None
 			if cell.ctype is xlrd.XL_CELL_DATE:
-				internal_value = xlrd.xldate_as_tuple(cell.value, self.workbook.datemode)
+				xldate_as_tuple = xlrd.xldate_as_tuple(cell.value, self.workbook.datemode)
+				internal_value = datetime.datetime(*xldate_as_tuple)
 			else:
 				internal_value = cell.value
 
