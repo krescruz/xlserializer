@@ -1,6 +1,6 @@
-from serializers import XlSerializerBase
+from serializers import BaseXlSerializer
 
-serializer = XlSerializerBase(filename="workbook.xlsx")
+serializer = BaseXlSerializer(filename="workbook.xlsx")
 
 serializer.set_sheet("NameSheet", declared_columns=('NameColumn',))
 
